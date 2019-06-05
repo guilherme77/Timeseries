@@ -25,4 +25,24 @@ def gridMLP(X_train,Y_train,X_val,Y_val):
     
     best_erro = 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
 
+    for act in activation:
+        for slv in solver:
+            for aph in alpha:
+                mlp = MLPRegressor(activation = act, solver = slv, alpha = aph)
+                mlp.fit(X_train, Y_train)
+                
+                predict = mlp.predict(X_val)
+                erro = metrics.mean_squared_error(Y_val, predict)
+                
+                if erro < best_erro:
+                    
+                    best_erro = erro
+                    best_model = mlp
+                    best_param = (act, slv, aph)
+                    best_predicts = predict
+                    
+                    print best_param
+                    print best_erro
+                    
     
+    return (best_model, best_predicts, best_erro, best_param)
