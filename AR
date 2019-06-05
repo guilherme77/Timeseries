@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun  5 15:07:57 2019
+
+@author: Guilherme
+"""
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import sklearn.metrics as metrics
+
+
+def processdata(datafile,dimension, valid = True):
+
+    data = np.loadtxt(datafile)
+    serie = pd.Series(data)
+    laggedata = pd.concat([serie.shift(i) for i in range(dimension+1)],axis=1 )
+
+    if valid == False: 
