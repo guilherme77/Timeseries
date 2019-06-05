@@ -69,3 +69,12 @@ def predictAR(coefs,testset,testtarget,dimension):
     erro = metrics.mean_squared_error(testtarget, predicts)
 
     return (predicts, erro)
+
+dimension = 22
+datafile = 'airlines2.txt'
+
+#AutoRegressivo
+
+(train_set, train_target, test_set, test_target) = processdata(datafile, dimension, valid=False)
+coefs = createmodelAR(train_set, train_target, dimension)
+(pred_AR, erro_AR) = predictAR(coefs, test_set, test_target, dimension) 
