@@ -55,4 +55,10 @@ def predict(testset,testtarget,model):
     erro = metrics.mean_squared_error(testtarget,predicts)
 
     return (predicts,erro) 
+  
+def createmodelAR(trainset,traintarget,dimension):    
+    trainset[dimension+1]=1 
+    coefs = np.linalg.pinv(trainset).dot(traintarget)
+    print coefs
+    return coefs
     
