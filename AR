@@ -18,3 +18,15 @@ def processdata(datafile,dimension, valid = True):
     laggedata = pd.concat([serie.shift(i) for i in range(dimension+1)],axis=1 )
 
     if valid == False: 
+         
+        #Treinamento
+        trainset = laggedata.iloc[dimension:int(np.floor(0.8*len( laggedata))),1:dimension+1]
+        traintarget = laggedata.iloc[dimension:int(np.floor(0.8*len( laggedata))),0]
+        
+        #Teste
+        testset =  laggedata.iloc[int(np.floor(0.8*len( laggedata))):len( laggedata),1:dimension+1]
+        testtarget =  laggedata.iloc[int(np.floor(0.8*len( laggedata))):len( laggedata),0]
+    
+        return (trainset,traintarget,testset,testtarget)
+    
+    
