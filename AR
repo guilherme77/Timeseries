@@ -78,3 +78,11 @@ datafile = 'airlines2.txt'
 (train_set, train_target, test_set, test_target) = processdata(datafile, dimension, valid=False)
 coefs = createmodelAR(train_set, train_target, dimension)
 (pred_AR, erro_AR) = predictAR(coefs, test_set, test_target, dimension) 
+
+print 'AR  Erro: %.4f' %erro_AR
+#print 'AR  pred: %s' %pred_AR
+
+plt.plot(test_target, 'r--', label = 'Real')
+plt.plot(pred_AR, label = 'AR predicted')
+plt.legend()
+plt.figure
