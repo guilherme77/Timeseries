@@ -62,3 +62,10 @@ def createmodelAR(trainset,traintarget,dimension):
     print coefs
     return coefs
     
+def predictAR(coefs,testset,testtarget,dimension):
+    
+    testset[dimension+1]=1
+    predicts = testset.dot(coefs)
+    erro = metrics.mean_squared_error(testtarget, predicts)
+
+    return (predicts, erro)
