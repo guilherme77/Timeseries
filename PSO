@@ -1,0 +1,67 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jun  4 19:52:55 2019
+
+@author: gsb
+"""
+
+#PSO , fazer uma hibridição com PSO + SVR     x=x+v if x[0] < LI  
+                                                          #x[0]=LI
+
+import numpy as np
+from matplotlib import pyplot as plt
+
+iterations = 1000
+n_pop = 100
+
+
+pop = np.random.rand(n_pop,2)*1000       # inicialização das partículas
+plt.scatter(pop[:,0],pop[:,1])
+plt.show()
+
+fit = np.zeros((n_pop,1))      # inicialização do vetor fitness
+
+pbest = np.zeros((n_pop,2))    # melhor pessoal de cada partícula
+pfit = np.zeros((n_pop,1)) + 99999999999999999999999999999999999999     # valor do melhor pessoal de cada partícula
+
+
+v = np.zeros((n_pop,2))    # velocidade de cada partícula
+w=0.8    # peso de inercia
+
+c1 = 2   # fator cognitivo
+c2 = 2   #  fator social
+
+
+
+
+for i in range(iterations):                      # início do loop
+        
+    for j in range(n_pop):
+        fit[j] = pop[j,0]**2 + pop[j,1]**2       # cálculo do fitness
+        
+        if(fit[j] < pfit[j]):                      #determinando o melhor pessoal de cada partícula
+            #pbest[j,0] = pop[j,0]
+            #pbest[j,1] = pop[j,1]
+            pbest[j] = pop[j].copy()             #evita uma referencia para um objeto (impedi que se alterar 1 atere o outro)
+            pfit[j] = fit[j]
+    
+    index = np.argmin(pfit) # cálculo da melhor partícula
+    gbest = pbest[index].copy()
+        
+    
+    for j in range(n_pop):
+        v[j] = w*v[j] + c1*np.random.rand()*(pbest[j]-pop[j]) + c2*np.random.rand()*(gbest - pop[j])
+        pop[j] = pop[j] + v[j]
+        
+plt.scatter(pop[:,0],pop[:,1])
+plt.show()
+
+
+
+print("Melhor individuo X= %f \t Y = %f :" %(gbest[0],gbest[1]))
+
+"""
+            scatterplot da populção 
+            antes do pso
+            depois do pso
+            e um plot do gfit (linear)"""
