@@ -10,29 +10,7 @@ Gamma_r = [2**(-5), 2**(-4), 2**(-3), 2**(-2), 2**(-1), 2**(0), 2**(1), 2**(2)]
     
 def gridSVR(X_train,Y_train,X_val,Y_val):
    
-    bestModel = 1
-    bestError = 99999999999999999999999999999999999999.0
-    bestPredicts = 1
-    bestParam = (0,0,0)
-    
-    for c in C_r:
-        for e in Epsilon_r:
-            for g in Gamma_r:
-                model = svm.SVR(C=10**c,epsilon=10**e, gamma=10**g)
-                model.fit(X_train,Y_train)
-                predicts = model.predict(X_val)
-                erro = metrics.mean_squared_error(Y_val,predicts)
-                
-                if (erro < bestError):
-                    bestError = erro
-                    bestModel = model
-                    bestPredicts = predicts
-                    bestParam = (c,g,e)
-                    print bestError
-                    print bestParam
-                    
-    return (bestModel,bestPredicts,bestError,bestParam)
-
+   
 def processdata(datafile,dimension, valid = True):
 
     data = np.loadtxt(datafile)
